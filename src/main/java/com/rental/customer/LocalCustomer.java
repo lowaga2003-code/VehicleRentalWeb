@@ -1,4 +1,4 @@
-package com.rental.models;
+package com.rental.customer;
 
 public class LocalCustomer extends Customer {
     private String nationalIdNumber;

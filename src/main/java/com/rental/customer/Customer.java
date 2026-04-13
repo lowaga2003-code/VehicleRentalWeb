@@ -1,4 +1,4 @@
-package com.rental.models;
+package com.rental.customer;
 
 public class Customer {
     private String customerID;
@@ -35,6 +35,7 @@ public class Customer {
     }
 
     public String getPhone() {
+
         return phone;
     }
     public void setPhone(String phone) {

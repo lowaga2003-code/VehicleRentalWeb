@@ -1,4 +1,4 @@
-package com.rental.models;
+package com.rental.customer;
 
 public class ForeignTourist extends Customer {
     private String passportNumber;
