@@ -1,4 +1,4 @@
 package com.rental.driver;
 
-public class Driver {
+public class FullTimeDriver {
 }
