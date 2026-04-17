@@ -19,6 +19,9 @@
 
         <a href="registerCustomer.jsp" class="menu-btn">Register New Customer</a>
         <a href="viewCustomers.jsp" class="menu-btn">View All Customers</a>
+        <a href="/driver" class="menu-btn">Driver Management</a>
+
+
 
         <br><hr><br>
 
