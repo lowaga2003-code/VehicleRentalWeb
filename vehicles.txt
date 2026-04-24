@@ -1,0 +1,1 @@
+CB6168,Toyota,corolla,WP-6788-2,2000.0,Car,Petrol
