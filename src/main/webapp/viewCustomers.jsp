@@ -31,9 +31,12 @@
                     <th>Email</th>
                     <th>Phone</th>
                     <th>Type</th>
+                    <th>Action</th> </tr>
                 </tr>
             </thead>
             <tbody>
+            <thead>
+
                 <%
                     // 1. Wake up the File Manager
                     CustomerFileManager fileManager = new CustomerFileManager();
@@ -54,7 +57,20 @@
                             <td><%= currentCustomer.getEmail() %></td>
                             <td><%= currentCustomer.getPhone() %></td>
                             <td><%= type %></td>
-                        </tr>
+                          <td>
+                          <a href="editCustomer.jsp?id=<%= currentCustomer.getCustomerId() %>"
+                                                             style="color: white; background: #28a745; padding: 5px 10px; text-decoration: none; border-radius: 4px; margin-right: 5px;">
+                                                             Edit
+                                                          </a>
+                                                                                <a href="deleteCustomerProcess.jsp?id=<%= currentCustomer.getCustomerId() %>"
+                                                                                   style="color: white; background: red; padding: 5px 10px; text-decoration: none; border-radius: 4px;"
+                                                                                   onclick="return confirm('Are you sure you want to delete <%= currentCustomer.getName() %>?');">
+                                                                                   Delete
+                                                                                </a>
+                                                                            </td>
+                                                                        </tr>
+
+
                 <%
                     }
                 %>

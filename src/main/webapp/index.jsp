@@ -20,13 +20,16 @@
         <a href="registerCustomer.jsp" class="menu-btn">Register New Customer</a>
         <a href="viewCustomers.jsp" class="menu-btn">View All Customers</a>
         <a href="/driver" class="menu-btn">Driver Management</a>
+      <a href="registerVehicle.jsp" style="display: block; width: 100%; padding: 10px; background-color: #28a745; color: white; text-align: center; text-decoration: none; border-radius: 5px; margin-bottom: 10px; font-weight: bold;">
+          Register New Vehicle
+      </a>
+
+      <a href="viewVehicles.jsp" style="display: block; width: 100%; padding: 10px; background-color: #28a745; color: white; text-align: center; text-decoration: none; border-radius: 5px; margin-bottom: 10px; font-weight: bold;">
+          View All Vehicles
+      </a>
 
 
 
-        <br><hr><br>
-
-        <a href="#" class="menu-btn vehicle-btn">Register New Vehicle</a>
-        <a href="#" class="menu-btn vehicle-btn">View All Vehicles</a>
     </div>
 
 </body>
