@@ -6,6 +6,7 @@ import org.springframework.boot.web.server.servlet.context.ServletComponentScan;
 
 @SpringBootApplication
 @ServletComponentScan
+
 public class VehicleRentalSystemApplication {
 
     public static void main(String[] args) {
