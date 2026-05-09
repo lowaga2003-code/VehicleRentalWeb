@@ -131,7 +131,17 @@
 
             <div class="topic-group">
                 <span class="topic-name">Drivers <span class="member-badge">Member 2</span></span>
-                <a href="driverManagement.jsp" class="btn-link">🪪 Driver Records</a>
+                <a href="addDriver.jsp" class="btn-link">
+                    ➕ Add Driver
+                </a>
+
+                <a href="manageDriver.jsp" class="btn-link">
+                    ⚙️ Manage Driver
+                </a>
+
+                <a href="viewDrivers.jsp" class="btn-link">
+                    📋 View Drivers
+                </a>
             </div>
         </div>
 

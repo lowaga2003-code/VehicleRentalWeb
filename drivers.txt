@@ -1,1 +1,2 @@
 Eb7870,Suranga Rajapaksha,MM12305487v,584213698v,0772548569,Divulapitiya,false,none,FullTime,2.0,0
+2000,Kamal,20000,100,09876533,jaffna,false,none,FullTime,1.0,0
