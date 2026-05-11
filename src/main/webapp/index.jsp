@@ -228,7 +228,7 @@
                 <div class="action-list">
                     <a href="addDriver.jsp" class="action-btn"><span>➕ Onboard Driver</span> <span>→</span></a>
                     <a href="manageDriver.jsp" class="action-btn"><span>⚙️ Manage Staff</span> <span>→</span></a>
-                    <a href="viewDrivers.jsp" class="action-btn"><span>📋 Roster List</span> <span>→</span></a>
+                    <a href="${pageContext.request.contextPath}/driver" class="action-btn"><span>📋 Roster List</span> <span>→</span></a>
                 </div>
             </div>
         </div>

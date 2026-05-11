@@ -2,26 +2,28 @@ package com.rental.driver;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class DriverController {
 
     private DriverService driverService = new DriverService();
 
+    // VIEW ALL DRIVERS (FIXED VIEW NAME)
     @GetMapping("/driver")
     public String showDriverPage(Model model) {
+
         Driver[] drivers = driverService.getAllDrivers();
         int count = driverService.getAllDriverCount();
 
         model.addAttribute("drivers", drivers);
         model.addAttribute("count", count);
 
-        return "driverManagement";
+
+        return "viewDrivers";
     }
 
+    // ADD DRIVER
     @PostMapping("/driver/add")
     public String addDriver(
             @RequestParam String driverId,
@@ -37,7 +39,8 @@ public class DriverController {
             @RequestParam(required = false, defaultValue = "0") int tripsCompleted,
             @RequestParam(required = false, defaultValue = "0") double commissionPerTrip
     ) {
-        if (assignedVehicleId == null || assignedVehicleId.trim().equals("")) {
+
+        if (assignedVehicleId == null || assignedVehicleId.trim().isEmpty()) {
             assignedVehicleId = "none";
         }
 
@@ -58,21 +61,29 @@ public class DriverController {
         }
 
         driverService.addDriver(driver);
+
+        // ✔ ALWAYS RETURN VIEW LIST AFTER ACTION
         return "redirect:/driver";
     }
 
+    // DELETE DRIVER
     @PostMapping("/driver/delete")
     public String deleteDriver(@RequestParam String licenseNumber) {
+
         driverService.deleteDriver(licenseNumber);
+
         return "redirect:/driver";
     }
 
+    // UPDATE AVAILABILITY
     @PostMapping("/driver/updateAvailability")
     public String updateAvailability(
             @RequestParam String licenseNumber,
             @RequestParam boolean available
     ) {
+
         driverService.updateDriverAvailability(licenseNumber, available);
+
         return "redirect:/driver";
     }
 }
