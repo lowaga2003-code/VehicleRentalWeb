@@ -1,88 +1,88 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="com.rental.VehicleInventoryManagement.*" %>
-<%@ page import="java.util.List" %>
+<%-- Import your exact Vehicle package and standard Java List --%>
+<%@ page import="com.rental.VehicleInventoryManagement.*, java.util.List" %>
 
 <html>
 <head>
     <title>Vehicle Inventory</title>
     <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f7f6; padding: 40px; }
-        .container { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); max-width: 1000px; margin: auto; }
-        h2 { color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 10px; }
-        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-        th { background-color: #3498db; color: white; padding: 12px; text-align: left; }
-        td { padding: 12px; border-bottom: 1px solid #eee; }
-        .type-tag { padding: 4px 8px; border-radius: 4px; font-size: 12px; font-weight: bold; color: white; }
-        .tag-car { background-color: #27ae60; }
-        .tag-van { background-color: #f39c12; }
-        .tag-suv { background-color: #8e44ad; }
-        .btn { padding: 6px 12px; border-radius: 4px; text-decoration: none; color: white; font-size: 13px; }
-        .btn-delete { background-color: #e74c3c; }
-        .btn-add { background-color: #3498db; display: inline-block; margin-bottom: 20px; }
+        body { font-family: 'Inter', sans-serif; background: #f8fafc; padding: 40px; }
+        .container { max-width: 1100px; margin: auto; }
+        .header-area { margin-bottom: 30px; }
+
+        .vehicle-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+
+        .card { background: white; border-radius: 15px; padding: 25px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); border: 1px solid #e2e8f0; position: relative; transition: 0.2s;}
+        .card:hover { transform: translateY(-5px); box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); }
+
+        /* Dynamic Badges for Car/Van/SUV */
+        .badge { position: absolute; top: 20px; right: 20px; font-size: 0.75rem; padding: 5px 10px; border-radius: 6px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;}
+        .badge.Car { background: #dcfce7; color: #166534; }
+        .badge.Van { background: #e0e7ff; color: #3730a3; }
+        .badge.SUV { background: #ffedd5; color: #9a3412; }
+
+        .icon-circle { width: 50px; height: 50px; background: #f1f5f9; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin-bottom: 15px;}
+
+        h3 { margin: 0 0 5px 0; color: #1e293b; font-size: 1.25rem; }
+        .plate { font-size: 0.85rem; color: #64748b; font-family: monospace; background: #f1f5f9; padding: 3px 8px; border-radius: 4px; display: inline-block; margin-bottom: 15px;}
+
+        .price { font-size: 1.1rem; font-weight: 700; color: #0f172a; margin-top: 15px; padding-top: 15px; border-top: 1px solid #f1f5f9;}
+        .price span { font-size: 0.85rem; color: #64748b; font-weight: 400;}
     </style>
 </head>
 <body>
+    <div class="container">
+        <div class="header-area">
+            <h1 style="margin:0;">🚙 Fleet Directory</h1>
+            <p style="color:#64748b; margin-top:5px;">Available vehicles for rental</p>
+        </div>
 
-<div class="container">
-    <h2>🚚 Vehicle Inventory Management</h2>
-    <a href="registerVehicle.jsp" class="btn btn-add">+ Register New Vehicle</a>
-
-    <table>
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Brand & Model</th>
-                <th>Plate</th>
-                <th>Type</th>
-                <th>Details</th>
-                <th>Daily Rate</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
+        <div class="vehicle-grid">
             <%
-                VehicleFileManager fm = new VehicleFileManager();
-                List<Vehicle> inventory = fm.getAllVehicles();
+                try {
+                    VehicleFileManager manager = new VehicleFileManager();
+                    // Because you used a standard List, we can use the easy loop!
+                    List<Vehicle> list = manager.getAllVehicles();
 
-                for (Vehicle v : inventory) {
-                    String typeClass = "";
-                    String details = "";
-                    String typeName = "";
+                    if (list != null && !list.isEmpty()) {
+                        for (Vehicle v : list) {
+                            // Automatically detects if it is a Car, Van, or SUV class
+                            String vehicleType = v.getClass().getSimpleName();
 
-                    // POLYMORPHISM: Check which child class we are dealing with
-                    if (v instanceof Car) {
-                        typeName = "Car";
-                        typeClass = "tag-car";
-                        details = "Fuel: " + ((Car)v).getFuelType();
-                    } else if (v instanceof Van) {
-                        typeName = "Van";
-                        typeClass = "tag-van";
-                        details = "Capacity: " + ((Van)v).getLoadCapacity() + "kg";
-                    } else if (v instanceof SUV) {
-                        typeName = "SUV";
-                        typeClass = "tag-suv";
-                        details = "AWD: " + (((SUV)v).isAWD() ? "Yes" : "No");
-                    }
+                            // Choose an icon based on the type
+                            String icon = "🚗";
+                            if (vehicleType.equals("Van")) icon = "🚐";
+                            if (vehicleType.equals("SUV")) icon = "🚙";
             %>
-            <tr>
-                <td><%= v.getVehicleId() %></td>
-                <td><%= v.getBrand() %> <%= v.getModel() %></td>
-                <td><%= v.getLicensePlate() %></td>
-                <td><span class="type-tag <%= typeClass %>"><%= typeName %></span></td>
-                <td><i><%= details %></i></td>
-                <td>LKR <%= v.getDailyRate() %></td>
-                <td>
-                    <a href="#" class="btn btn-delete">Delete</a>
-                </td>
-            </tr>
+            <div class="card">
+                <span class="badge <%= vehicleType %>"><%= vehicleType %></span>
+                <div class="icon-circle"><%= icon %></div>
+
+                <h3><%= v.getBrand() %> <%= v.getModel() %></h3>
+                <div class="plate"><%= v.getLicensePlate() %></div>
+
+                <div style="font-size:0.9rem; color:#475569;">
+                    <b>Vehicle ID:</b> <%= v.getVehicleId() %>
+                </div>
+
+                <div class="price">
+                    LKR <%= String.format("%.2f", v.getDailyRate()) %> <span>/ day</span>
+                </div>
+            </div>
             <%
+                        }
+                    } else {
+                        out.println("<p>No vehicles found in the fleet.</p>");
+                    }
+                } catch (Exception e) {
+                    out.println("<p style='color:red;'>Java Error: " + e.getMessage() + "</p>");
                 }
             %>
-        </tbody>
-    </table>
-    <br>
-    <a href="index.jsp" style="color: #7f8c8d; text-decoration: none;">← Back to Dashboard</a>
-</div>
+        </div>
 
+        <div style="margin-top: 40px; text-align: center;">
+            <a href="index.jsp" style="text-decoration: none; color: #64748b; font-weight: 500;">← Return to Dashboard</a>
+        </div>
+    </div>
 </body>
 </html>

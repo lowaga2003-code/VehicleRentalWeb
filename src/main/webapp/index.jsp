@@ -1,8 +1,11 @@
 <%
-    if (session.getAttribute("adminLoggedIn") == null) {
-        response.sendRedirect("login.jsp");
-        return;
-    }
+    // Session Security Check
+
+        if (session.getAttribute("adminLoggedIn") == null) {
+            response.sendRedirect("login.jsp");
+            return;
+        }
+
 %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
@@ -126,22 +129,15 @@
             <div class="topic-group">
                 <span class="topic-name">Customers <span class="member-badge">Member 1</span></span>
                 <a href="registerCustomer.jsp" class="btn-link">📝 Register New</a>
-                <a href="viewCustomers.jsp" class="btn-link">📋 View Directory</a>
+                <a href="manageCustomers.jsp" class="btn-link">⚙️ Manage Customers</a>
+                <a href="viewCustomers.jsp" class="btn-link">👥 View Customers</a>
             </div>
 
             <div class="topic-group">
                 <span class="topic-name">Drivers <span class="member-badge">Member 2</span></span>
-                <a href="addDriver.jsp" class="btn-link">
-                    ➕ Add Driver
-                </a>
-
-                <a href="manageDriver.jsp" class="btn-link">
-                    ⚙️ Manage Driver
-                </a>
-
-                <a href="viewDrivers.jsp" class="btn-link">
-                    📋 View Drivers
-                </a>
+                <a href="addDriver.jsp" class="btn-link">➕ Add Driver</a>
+                <a href="manageDriver.jsp" class="btn-link">⚙️ Manage Driver</a>
+                <a href="viewDrivers.jsp" class="btn-link">📋 View Drivers</a>
             </div>
         </div>
 
@@ -151,6 +147,7 @@
             <div class="topic-group">
                 <span class="topic-name">Vehicles <span class="member-badge">Member 3</span></span>
                 <a href="registerVehicle.jsp" class="btn-link">➕ Add Vehicle</a>
+                <a href="manageVehicles.jsp" class="btn-link">⚙️ Manage Vehicles</a>
                 <a href="viewVehicles.jsp" class="btn-link">🔍 View Inventory</a>
             </div>
 

@@ -43,7 +43,7 @@ public class VehicleServlet extends HttpServlet {
             // 3. Save the vehicle and send the user to the inventory table
             if (newVehicle != null) {
                 fileManager.saveVehicle(newVehicle);
-                response.sendRedirect("viewVehicles.jsp");
+                response.sendRedirect("manageVehicles.jsp");
             }
         } catch (Exception e) {
             // If something goes wrong, send them back to the form with an error
