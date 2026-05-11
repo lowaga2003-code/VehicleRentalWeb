@@ -1,1 +1,3 @@
 CB6168,Toyota,corolla,WP-6788-2,2000.0,Car,Petrol
+CBA,Mazda,EZR100,WP-CL-002,15000.0,SUV,true
+V003,Honda,V8,WP-ZX-60001,12000.0,Van,2000.0

@@ -13,10 +13,21 @@ public class RentalPackage {
         this.price = price;
     }
 
-    public String getPackageId() { return packageId; }
-    public String getPackageName() { return packageName; }
-    public String getDuration() { return duration; }
-    public double getPrice() { return price; }
+    public String getPackageId() {
+        return packageId;
+    }
+
+    public String getPackageName() {
+        return packageName;
+    }
+
+    public String getDuration() {
+        return duration;
+    }
+
+    public double getPrice() {
+        return price;
+    }
 
     public String toFileString() {
         return packageId + "," + packageName + "," + duration + "," + price;

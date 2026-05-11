@@ -1,183 +1,299 @@
 <%
     // Session Security Check
-
-        if (session.getAttribute("adminLoggedIn") == null) {
-            response.sendRedirect("login.jsp");
-            return;
-        }
-
+    if (session.getAttribute("adminLoggedIn") == null) {
+        response.sendRedirect("login.jsp");
+        return;
+    }
 %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
     <title>Master Dashboard | Vehicle Rental System</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: #f3f4f6;
-            --white: #ffffff;
-            --primary: #6366f1; /* Indigo */
-            --secondary: #10b981; /* Emerald */
-            --accent: #f59e0b; /* Amber */
-            --text-dark: #1f2937;
-            --text-muted: #6b7280;
+            --primary: #6366f1;
+            --secondary: #10b981;
+            --accent: #f59e0b;
+            --danger: #ef4444;
+            --dark: #0f172a;
+            --light-bg: #f8fafc;
         }
 
         body {
-            font-family: 'Inter', system-ui, -apple-system, sans-serif;
-            background-color: var(--bg);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--light-bg);
             margin: 0; padding: 0;
-            color: var(--text-dark);
+            color: var(--dark);
         }
 
-        .container { max-width: 1100px; margin: 0 auto; padding: 50px 20px; }
+        /* 1. TOP NAVIGATION */
+        .navbar {
+            background: white;
+            padding: 15px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            position: sticky; top: 0; z-index: 100;
+        }
 
-        /* Welcome Section */
-        .header { text-align: center; margin-bottom: 50px; }
-        .header h1 { font-size: 2.5rem; margin: 0; font-weight: 800; letter-spacing: -1px; }
-        .header p { color: var(--text-muted); font-size: 1.1rem; margin-top: 10px; }
+        .logo-area { display: flex; align-items: center; gap: 10px; }
+        .logo-dot { width: 12px; height: 12px; background: var(--primary); border-radius: 50%; }
+        .logo-text { font-weight: 800; font-size: 1.2rem; color: var(--dark); text-transform: uppercase; letter-spacing: 1px; }
 
-        /* The 3-Column Grid */
-        .pillar-grid {
+        /* 2. MODERN HERO HEADER (From Screenshot 1) */
+        .hero {
+            background: linear-gradient(rgba(15, 23, 42, 0.85), rgba(15, 23, 42, 0.85)),
+                        url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1600&q=80');
+            background-size: cover;
+            background-position: center;
+            padding: 90px 20px 120px 20px; /* Extra bottom padding for overlap */
+            text-align: center;
+            color: white;
+            border-radius: 0 0 40px 40px;
+        }
+
+        .hero h1 { font-size: 3.2rem; margin: 0; font-weight: 800; letter-spacing: -1.5px; }
+        .hero p { opacity: 0.85; font-size: 1.1rem; margin-top: 10px; }
+
+        .container { max-width: 1200px; margin: -80px auto 80px; padding: 0 20px; position: relative; z-index: 10; }
+
+        /* 3. THE 6 CATEGORY GRID */
+        .category-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 25px;
         }
 
-        .pillar {
-            background: var(--white);
-            border-radius: 20px;
+        /* HYBRID CARD: Photo Backgrounds (Screenshot 2) inside Overlapping Grid (Screenshot 1) */
+        .category-card {
+            border-radius: 24px;
+            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            background-size: cover;
+            background-position: center;
+            border: 1px solid #e2e8f0;
+        }
+
+        .category-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.15);
+            border-color: var(--primary);
+        }
+
+        /* Frosted Glass Overlay to make text readable */
+        .card-overlay {
+            background: linear-gradient(to bottom, rgba(255,255,255,0.65) 0%, rgba(255,255,255,0.95) 35%, rgba(255,255,255,1) 100%);
+            backdrop-filter: blur(6px);
             padding: 30px;
-            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05);
-            border: 1px solid rgba(0,0,0,0.03);
+            height: 100%;
+            box-sizing: border-box;
             display: flex;
             flex-direction: column;
         }
 
-        .pillar-title {
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            font-weight: 700;
-            margin-bottom: 25px;
-            padding: 5px 12px;
+        /* Card Background Images */
+        .c1 { background-image: url('https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&w=600&q=80'); }
+        .c2 { background-image: url('https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?auto=format&fit=crop&w=600&q=80'); }
+        .c3 { background-image: url('https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=600&q=80'); }
+        .c4 { background-image: url('https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&w=600&q=80'); }
+        .c5 { background-image: url('https://images.unsplash.com/photo-1506784983877-45594efa4cbe?auto=format&fit=crop&w=600&q=80'); }
+        .c6 { background-image: url('https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=600&q=80'); }
+
+        /* Card Inner Elements */
+        .card-header-row { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px; }
+
+        .icon-box {
+            width: 50px; height: 50px;
+            border-radius: 14px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.5rem;
+            background: white; /* Fallback */
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        /* Specific Icon Colors */
+        .c1 .icon-box { background: #e0e7ff; color: var(--primary); }
+        .c2 .icon-box { background: #dcfce7; color: var(--secondary); }
+        .c3 .icon-box { background: #ffedd5; color: var(--accent); }
+        .c4 .icon-box { background: #fce7f3; color: #db2777; }
+        .c5 .icon-box { background: #e0f2fe; color: #0284c7; }
+        .c6 .icon-box { background: #f1f5f9; color: var(--dark); }
+
+        .member-id {
+            background: rgba(241, 245, 249, 0.9);
+            color: #64748b;
+            padding: 6px 12px;
             border-radius: 50px;
-            display: inline-block;
-            width: fit-content;
-        }
-
-        /* Color Themes for Pillars */
-        .pillar.blue { border-top: 5px solid var(--primary); }
-        .pillar.blue .pillar-title { background: #e0e7ff; color: var(--primary); }
-
-        .pillar.green { border-top: 5px solid var(--secondary); }
-        .pillar.green .pillar-title { background: #d1fae5; color: var(--secondary); }
-
-        .pillar.orange { border-top: 5px solid var(--accent); }
-        .pillar.orange .pillar-title { background: #fef3c7; color: var(--accent); }
-
-        /* Topic Rows */
-        .topic-group { margin-bottom: 25px; }
-        .topic-name { font-size: 1.1rem; font-weight: 700; margin-bottom: 12px; display: block; }
-        .member-badge {
             font-size: 0.7rem;
-            background: #f9fafb;
-            color: #9ca3af;
-            padding: 2px 8px;
-            border-radius: 4px;
-            border: 1px solid #e5e7eb;
-            margin-left: 8px;
-            font-weight: 400;
+            font-weight: 800;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
         }
 
-        .btn-link {
-            display: block;
-            padding: 12px 15px;
-            background: #ffffff;
-            border: 1px solid #f3f4f6;
-            border-radius: 10px;
+        .category-card h2 { margin: 0 0 20px 0; font-size: 1.4rem; font-weight: 800; color: #0f172a; }
+
+        /* ACTION BUTTONS */
+        .action-list { display: flex; flex-direction: column; gap: 10px; flex-grow: 1; justify-content: flex-end; }
+
+        .action-btn {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 14px 18px;
+            background: rgba(248, 250, 252, 0.8);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+            border-radius: 12px;
             text-decoration: none;
-            color: var(--text-dark);
-            font-size: 0.9rem;
-            margin-bottom: 8px;
-            transition: all 0.2s ease;
-            font-weight: 500;
+            color: var(--dark);
+            font-size: 0.95rem;
+            font-weight: 600;
+            transition: 0.2s;
         }
 
-        .btn-link:hover {
-            background: #f9fafb;
+        .action-btn:hover {
+            background: white;
+            border-color: var(--primary);
             transform: translateX(5px);
-            border-color: #d1d5db;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
         }
 
-        .footer { text-align: center; margin-top: 60px; }
-        .logout { color: #ef4444; text-decoration: none; font-weight: 600; font-size: 0.9rem; }
+        .action-btn span:last-child { color: #94a3b8; font-weight: bold; }
+
+        .logout-container { text-align: center; margin-top: 60px; }
+
+        .logout-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: white;
+            color: var(--danger);
+            padding: 12px 25px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            transition: 0.3s;
+        }
+
+        .logout-link:hover { background: #fee2e2; transform: translateY(-2px); }
     </style>
 </head>
 <body>
 
+<div class="navbar">
+    <div class="logo-area">
+        <div class="logo-dot"></div>
+        <span class="logo-text">RentalDrive Admin</span>
+    </div>
+    <div style="font-size: 0.9rem; color: #64748b; font-weight: 600;">
+        System Status: <span style="color:var(--secondary)">● Online</span>
+    </div>
+</div>
+
+<div class="hero">
+    <h1>System Command Center</h1>
+    <p>Manage fleet, operations, and finances in one smart interface.</p>
+</div>
+
 <div class="container">
-    <div class="header">
-        <h1>Vehicle Rental System</h1>
-        <p>Project Dashboard & Management Console</p>
+
+    <div class="category-grid">
+
+        <div class="category-card c1">
+            <div class="card-overlay">
+                <div class="card-header-row">
+                    <div class="icon-box">👥</div>
+                    <span class="member-id">Member 1</span>
+                </div>
+                <h2>Customer Relations</h2>
+                <div class="action-list">
+                    <a href="registerCustomer.jsp" class="action-btn"><span>📝 Register New</span> <span>→</span></a>
+                    <a href="manageCustomers.jsp" class="action-btn"><span>⚙️ Manage Directory</span> <span>→</span></a>
+                    <a href="viewCustomers.jsp" class="action-btn"><span>🔍 View Records</span> <span>→</span></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="category-card c2">
+            <div class="card-overlay">
+                <div class="card-header-row">
+                    <div class="icon-box">👨‍✈️</div>
+                    <span class="member-id">Member 2</span>
+                </div>
+                <h2>Driver Network</h2>
+                <div class="action-list">
+                    <a href="addDriver.jsp" class="action-btn"><span>➕ Onboard Driver</span> <span>→</span></a>
+                    <a href="manageDriver.jsp" class="action-btn"><span>⚙️ Manage Staff</span> <span>→</span></a>
+                    <a href="viewDrivers.jsp" class="action-btn"><span>📋 Roster List</span> <span>→</span></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="category-card c3">
+            <div class="card-overlay">
+                <div class="card-header-row">
+                    <div class="icon-box">🚗</div>
+                    <span class="member-id">Member 3</span>
+                </div>
+                <h2>Vehicle Inventory</h2>
+                <div class="action-list">
+                    <a href="registerVehicle.jsp" class="action-btn"><span>➕ Add Asset</span> <span>→</span></a>
+                    <a href="manageVehicles.jsp" class="action-btn"><span>⚙️ Fleet Maintenance</span> <span>→</span></a>
+                    <a href="viewVehicles.jsp" class="action-btn"><span>🔍 Stock Audit</span> <span>→</span></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="category-card c4">
+            <div class="card-overlay">
+                <div class="card-header-row">
+                    <div class="icon-box">🎁</div>
+                    <span class="member-id">Member 4</span>
+                </div>
+                <h2>Rental Packages</h2>
+                <div class="action-list">
+                    <a href="addPackage.jsp" class="action-btn"><span>✨ Create Offer</span> <span>→</span></a>
+                    <a href="viewPackages.jsp" class="action-btn"><span>📦 View Catalog</span> <span>→</span></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="category-card c5">
+            <div class="card-overlay">
+                <div class="card-header-row">
+                    <div class="icon-box">🗓️</div>
+                    <span class="member-id">Member 5</span>
+                </div>
+                <h2>Booking Engine</h2>
+                <div class="action-list">
+                    <a href="registerBooking.jsp" class="action-btn"><span>🗓️ New Booking</span> <span>→</span></a>
+                    <a href="viewBookings.jsp" class="action-link action-btn"><span>📂 Transaction Log</span> <span>→</span></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="category-card c6">
+            <div class="card-overlay">
+                <div class="card-header-row">
+                    <div class="icon-box">💳</div>
+                    <span class="member-id">Member 6</span>
+                </div>
+                <h2>Financial Ledger</h2>
+                <div class="action-list">
+                    <a href="makePayment.jsp" class="action-btn"><span>💳 Process Payment</span> <span>→</span></a>
+                    <a href="viewPayments.jsp" class="action-btn"><span>📊 Revenue Analytics</span> <span>→</span></a>
+                </div>
+            </div>
+        </div>
+
     </div>
 
-    <div class="pillar-grid">
-
-        <div class="pillar blue">
-            <span class="pillar-title">User Management</span>
-
-            <div class="topic-group">
-                <span class="topic-name">Customers <span class="member-badge">Member 1</span></span>
-                <a href="registerCustomer.jsp" class="btn-link">📝 Register New</a>
-                <a href="manageCustomers.jsp" class="btn-link">⚙️ Manage Customers</a>
-                <a href="viewCustomers.jsp" class="btn-link">👥 View Customers</a>
-            </div>
-
-            <div class="topic-group">
-                <span class="topic-name">Drivers <span class="member-badge">Member 2</span></span>
-                <a href="addDriver.jsp" class="btn-link">➕ Add Driver</a>
-                <a href="manageDriver.jsp" class="btn-link">⚙️ Manage Driver</a>
-                <a href="viewDrivers.jsp" class="btn-link">📋 View Drivers</a>
-            </div>
-        </div>
-
-        <div class="pillar green">
-            <span class="pillar-title">Inventory & Fleet</span>
-
-            <div class="topic-group">
-                <span class="topic-name">Vehicles <span class="member-badge">Member 3</span></span>
-                <a href="registerVehicle.jsp" class="btn-link">➕ Add Vehicle</a>
-                <a href="manageVehicles.jsp" class="btn-link">⚙️ Manage Vehicles</a>
-                <a href="viewVehicles.jsp" class="btn-link">🔍 View Inventory</a>
-            </div>
-
-            <div class="topic-group">
-                <span class="topic-name">Rental Packages <span class="member-badge">Member 4</span></span>
-                <a href="addPackage.jsp" class="btn-link">🎁 Create Package</a>
-                <a href="viewPackages.jsp" class="btn-link">📦 View Packages</a>
-            </div>
-        </div>
-
-        <div class="pillar orange">
-            <span class="pillar-title">Operations</span>
-
-            <div class="topic-group">
-                <span class="topic-name">Bookings <span class="member-badge">Member 5</span></span>
-                <a href="registerBooking.jsp" class="btn-link">🗓️ New Booking</a>
-                <a href="viewBookings.jsp" class="btn-link">📂 Booking History</a>
-            </div>
-
-            <div class="topic-group">
-                <span class="topic-name">Payments <span class="member-badge">Member 6</span></span>
-                <a href="makePayment.jsp" class="btn-link">💳 Process Payment</a>
-                <a href="viewPayments.jsp" class="btn-link">📊 Financial Ledger</a>
-            </div>
-        </div>
-
-    </div>
-
-    <div class="footer">
-        <a href="login.jsp" class="logout">🔒 Secure System Logout</a>
+    <div class="logout-container">
+        <a href="login.jsp" class="logout-link">🔒 Terminate Secure Session</a>
     </div>
 </div>
 
