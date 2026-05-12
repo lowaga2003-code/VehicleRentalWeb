@@ -113,6 +113,14 @@
             font-size:15px;
         }
 
+        .paymentBtn{
+            background:#f59e0b;
+        }
+
+        .paymentBtn:hover{
+            background:#d97706;
+        }
+
     </style>
 
 </head>
@@ -177,6 +185,40 @@
         </form>
 
     </div>
+
+    <div class="card">
+
+        <div class="iconCircle">💰</div>
+
+        <h2>Freelance Payment</h2>
+
+        <form action="/driver/updateFreelancePayment" method="post">
+
+            <input type="text"
+                   name="licenseNumber"
+                   placeholder="Enter License Number"
+                   required>
+
+            <input type="number"
+                   name="tripsCompleted"
+                   placeholder="Trips Completed"
+                   required>
+
+            <input type="number"
+                   step="0.01"
+                   name="commissionPerTrip"
+                   placeholder="Commission Per Trip"
+                   required>
+
+            <button type="submit" class="paymentBtn">
+                Calculate Payment
+            </button>
+
+        </form>
+
+    </div>
+
+
 
 </div>
 

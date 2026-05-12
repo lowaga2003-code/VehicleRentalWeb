@@ -198,13 +198,13 @@
 
             </div>
 
-            <div id="tripField" style="display:none;">
+            <!--<div id="tripField" style="display:none;">
 
                 <input type="number"
                        name="tripsCompleted"
                        placeholder="Trips Completed">
 
-            </div>
+            </div>-->
 
             <div id="commissionField" style="display:none;">
 

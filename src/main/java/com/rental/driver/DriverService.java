@@ -192,5 +192,41 @@ public class DriverService {
 
         return fileHandler.updateDriver(driver);
     }
+
+    public boolean updateFreelancePayment(
+            String licenseNumber,
+            int tripsCompleted,
+            double commissionPerTrip
+    ) {
+
+        Driver[] drivers = fileHandler.getAllDrivers();
+
+        int driverCount = fileHandler.getDriverCount();
+
+        for (int i = 0; i < driverCount; i++) {
+
+            if (drivers[i] != null &&
+                    drivers[i].getLicenseNumber().equals(licenseNumber)) {
+
+                if (drivers[i] instanceof FreelanceDriver) {
+
+                    FreelanceDriver freelanceDriver =
+                            (FreelanceDriver) drivers[i];
+
+                    freelanceDriver.setTripsCompleted(tripsCompleted);
+
+                    freelanceDriver.setCommissionPerTrip(commissionPerTrip);
+
+                    return fileHandler.updateDriver(freelanceDriver);
+                }
+            }
+        }
+
+        return false;
+    }
+
+
+
+
 }
 

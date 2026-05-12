@@ -86,4 +86,24 @@ public class DriverController {
 
         return "redirect:/driver";
     }
+
+// here
+    @PostMapping("/driver/updateFreelancePayment")
+    public String updateFreelancePayment(
+
+            @RequestParam String licenseNumber,
+
+            @RequestParam int tripsCompleted,
+
+            @RequestParam double commissionPerTrip
+    ) {
+
+        driverService.updateFreelancePayment(
+                licenseNumber,
+                tripsCompleted,
+                commissionPerTrip
+        );
+
+        return "redirect:/driver";
+    }
 }
