@@ -1,40 +1,130 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="com.rental.driver.Driver" %>
 
+<%
+    Driver[] drivers = (Driver[]) request.getAttribute("drivers");
+
+    Integer countObj = (Integer) request.getAttribute("count");
+
+    int count = 0;
+
+    if (countObj != null) {
+        count = countObj;
+    }
+%>
+
 <html>
 <head>
 
-    <title>All Drivers</title>
+    <title>Driver Directory</title>
 
     <style>
 
         body{
             font-family: Arial, sans-serif;
-            background:#f4f6f8;
+            background:#f3f4f6;
+            margin:0;
             padding:20px;
+            color:#111827;
         }
 
-        .container{
-            max-width:1000px;
-            margin:auto;
+        h1{
+            font-size:28px;
+            margin-bottom:20px;
+            font-weight:bold;
         }
 
-        .card{
+        .driver-grid{
+            display:grid;
+            grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
+            gap:16px;
+        }
+
+        .driver-card{
             background:white;
-            padding:20px;
+            border-radius:14px;
+            padding:16px;
+            box-shadow:0 3px 10px rgba(0,0,0,0.08);
+            transition:0.2s ease;
+        }
+
+        .driver-card:hover{
+            transform:translateY(-4px);
+        }
+
+        .avatar{
+            width:40px;
+            height:40px;
+            border-radius:50%;
+            background:#e0e7ff;
+            color:#4f46e5;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            font-size:18px;
+            font-weight:bold;
+            margin-bottom:12px;
+        }
+
+        .driver-name{
+            font-size:18px;
+            font-weight:bold;
+            margin-bottom:6px;
+        }
+
+        .driver-id{
+            color:#6b7280;
+            margin-bottom:12px;
+            font-size:14px;
+        }
+
+        .info{
+            margin-bottom:8px;
+            font-size:14px;
+        }
+
+        .status{
+            display:inline-block;
+            margin-top:10px;
+            padding:6px 12px;
+            border-radius:30px;
+            font-size:13px;
+            font-weight:bold;
+        }
+
+        .available{
+            background:#dcfce7;
+            color:#166534;
+        }
+
+        .not-available{
+            background:#fee2e2;
+            color:#991b1b;
+        }
+
+        .payment{
+            margin-top:10px;
+            font-weight:bold;
+            color:#111827;
+            font-size:14px;
+        }
+
+        .empty{
+            text-align:center;
+            padding:40px;
+            background:white;
             border-radius:12px;
-            box-shadow:0 4px 12px rgba(0,0,0,0.08);
+            color:gray;
+            font-size:18px;
         }
 
-        table{
-            width:100%;
-            border-collapse:collapse;
-        }
-
-        th,td{
-            padding:10px;
-            border-bottom:1px solid #ddd;
-            text-align:left;
+        .back-btn{
+            display:inline-block;
+            margin-top:25px;
+            text-decoration:none;
+            color:#4f46e5;
+            font-weight:bold;
+            font-size:15px;
         }
 
     </style>
@@ -43,69 +133,88 @@
 
 <body>
 
-<div class="container">
+<h1>👨‍✈️ Driver Directory</h1>
 
-    <div class="card">
+<div class="driver-grid">
 
-        <h2>All Drivers</h2>
+    <%
+        boolean hasDrivers = false;
 
-        <table>
+        if (drivers != null) {
 
-            <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>License</th>
-                <th>Type</th>
-                <th>Available</th>
-                <th>Payment</th>
-            </tr>
+            for (int i = 0; i < count; i++) {
 
-            <%
-                Driver[] drivers = (Driver[]) request.getAttribute("drivers");
+                if (drivers[i] != null) {
 
-                Integer countObj =
-                        (Integer) request.getAttribute("count");
+                    hasDrivers = true;
 
-                int count = 0;
+                    String firstLetter =
+                            drivers[i].getName().substring(0,1).toUpperCase();
+    %>
 
-                if (countObj != null) {
-                    count = countObj;
-                }
+    <div class="driver-card">
 
-                if (drivers != null) {
+        <div class="avatar">
+            <%= firstLetter %>
+        </div>
 
-                    for (int i = 0; i < count; i++) {
+        <div class="driver-name">
+            <%= drivers[i].getName() %>
+        </div>
 
-                        if (drivers[i] != null) {
-            %>
+        <div class="driver-id">
+            ID: <%= drivers[i].getDriverId() %>
+        </div>
 
-            <tr>
+        <div class="info">
+            🚘 License: <%= drivers[i].getLicenseNumber() %>
+        </div>
 
-                <td><%= drivers[i].getDriverId() %></td>
+        <div class="info">
+            👤 Type: <%= drivers[i].getDriverType() %>
+        </div>
 
-                <td><%= drivers[i].getName() %></td>
+        <div class="info">
+            📞 <%= drivers[i].getPhone() %>
+        </div>
 
-                <td><%= drivers[i].getLicenseNumber() %></td>
+        <div class="info">
+            🆔 NIC: <%= drivers[i].getNic() %>
+        </div>
 
-                <td><%= drivers[i].getDriverType() %></td>
+        <div class="payment">
+            💰 Payment: Rs. <%= drivers[i].calculatePayment() %>
+        </div>
 
-                <td><%= drivers[i].isAvailable() %></td>
+        <div class="status <%= drivers[i].isAvailable() ? "available" : "not-available" %>">
 
-                <td><%= drivers[i].calculatePayment() %></td>
+            <%= drivers[i].isAvailable() ? "Available" : "Not Available" %>
 
-            </tr>
-
-            <%
-                        }
-                    }
-                }
-            %>
-
-        </table>
+        </div>
 
     </div>
 
+    <%
+                }
+            }
+        }
+
+        if (!hasDrivers) {
+    %>
+
+    <div class="empty">
+        No drivers available
+    </div>
+
+    <%
+        }
+    %>
+
 </div>
+
+<a href="index.jsp" class="back-btn">
+    ← Back to Dashboard
+</a>
 
 </body>
 </html>

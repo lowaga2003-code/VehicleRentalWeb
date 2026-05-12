@@ -5,3 +5,7 @@ DR253565,Suranga Rajapaksha,rygsgw,wetgf,wg,Divulapitiya,true,Available,FullTime
 DR200315648,Driver Shanaka,50021482265,85241365975,0775052138,Malabe, Colombo,true,Available,FullTime,50000.0,0
 fd1245,vwerrqwb,rqw,rbqw,rbqw,wveqvewq,true,vewq,FullTime,50000.0,0
 ddd,ddddd,ddddd,dddd,ddd,ddd,true,none,FullTime,0.0,0
+ffff,fffff,ffff,44,fff,ff,false,none,FullTime,0.0,0
+222,2222,222,22,222,2222,true,none,FullTime,1000000.0,0
+44,444,444,444,444,444,true,none,Freelance,5,5000.0
+777,7777,7777,777,777,777,true,none,FullTime,7777777.0,0
