@@ -1,0 +1,18 @@
+[33m88283da[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m HEAD@{0}: pull origin main: Fast-forward
+[33m48bfc29[m HEAD@{1}: commit: Added the new dashboard UI and logic
+[33mcc85f40[m HEAD@{2}: reset: moving to cc85f40
+[33m930ba2c[m HEAD@{3}: pull origin main: Fast-forward
+[33mcc85f40[m HEAD@{4}: commit: Updated Admin Dashboard with 6-category bento layout and lifestyle photography
+[33m1ecb1c9[m HEAD@{5}: commit: feat: complete login and logout logic with session management
+[33mcdf4277[m HEAD@{6}: merge origin/main: Fast-forward
+[33m604aee1[m HEAD@{7}: commit: Updated dashboard UI with categorized topics
+[33m3f48277[m HEAD@{8}: commit: Added new feature
+[33m50264cf[m HEAD@{9}: pull --no-stat -v --progress origin main: Fast-forward
+[33m7a00206[m HEAD@{10}: commit: Added template classes so GitHub tracks the member folders
+[33m73de5d7[m HEAD@{11}: commit: Fixed all package imports and finalized 6-part architecture.
+[33m53d5191[m HEAD@{12}: commit: Implemented LocalCustomer and ForeignTourist with(reupdate logic later) deposit logic
+[33m2f41ee0[m HEAD@{13}: pull origin main --rebase (finish): returning to refs/heads/main
+[33m2f41ee0[m HEAD@{14}: pull origin main --rebase (pick): Updated Customer parent class to a standard class with default deposit logic
+[33m0c36ed1[m HEAD@{15}: pull origin main --rebase (start): checkout 0c36ed1099870af6b5f977e3726b4453049a8476
+[33m031bbb2[m HEAD@{16}: Branch: renamed refs/heads/master to refs/heads/main
+[33m031bbb2[m HEAD@{18}: commit (initial): Updated Customer parent class to a standard class with default deposit logic

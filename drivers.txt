@@ -6,6 +6,5 @@ ddd,ddddd,ddddd,dddd,ddd,ddd,true,none,FullTime,0.0,0
 ffff,fffff,ffff,44,fff,ff,false,none,FullTime,0.0,0
 222,2222,222,22,222,2222,true,none,FullTime,1000000.0,0
 44,444,444,444,444,444,true,none,Freelance,5,5000.0
-777,7777,7777,777,777,777,true,none,FullTime,7777777.0,0
 ssss,ssss,ss,ss,ssss,ssss,false,none,Freelance,0,0.0
 4000,sakithw,333,33,33,33,true,none,Freelance,100,100.0
