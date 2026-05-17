@@ -1,10 +1,6 @@
 Eb7870,Suranga Rajapaksha,MM12305487v,584213698v,0772548569,Divulapitiya,false,none,FullTime,2.0,0
 2000,Kamal,20000,100,09876533,jaffna,false,none,FullTime,1.0,0
 DR253565,Suranga Rajapaksha,rygsgw,wetgf,wg,Divulapitiya,true,Available,FullTime,50000.0,0
-fd1245,vwerrqwb,rqw,rbqw,rbqw,wveqvewq,true,vewq,FullTime,50000.0,0
-ddd,ddddd,ddddd,dddd,ddd,ddd,true,none,FullTime,0.0,0
 ffff,fffff,ffff,44,fff,ff,false,none,FullTime,0.0,0
-222,2222,222,22,222,2222,true,none,FullTime,1000000.0,0
-44,444,444,444,444,444,true,none,Freelance,5,5000.0
 ssss,ssss,ss,ss,ssss,ssss,false,none,Freelance,0,0.0
-4000,sakithw,333,33,33,33,true,none,Freelance,100,100.0
+11,sakitha,200000,111,sa,jaffna,true,none,FullTime,0.0,0
